@@ -47,6 +47,15 @@ impl Layout {
 
 }
 
+type KeyboardKeyStr<'a> = &'a str;
+type Word = &'static str;
+
+trait Dictionary {
+    fn with_layout(layout: Layout) -> Self;
+    fn add_words(&mut self, words: impl Iterator<Item = Word>);
+    fn complete(&self, partial: KeyboardKeyStr, lim: usize) -> Vec<Word>;
+    fn get(&self, src: KeyboardKeyStr, lim: usize) -> Vec<Word>;
+}
 
 #[cfg(test)]
 mod tests {
